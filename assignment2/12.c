@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+#define DEFAULT_SIZE 15
 
 typedef struct {
   int *pointer;
@@ -61,7 +62,6 @@ int contains(Array digits, Array number) {
 int find_the_number(int prev, int original_next) {
   int next = prev;
   while(1) {
-    printf("%d\n", next);
     if(contains(to_array(original_next), to_array(next))) return next;
     next++;
   }
@@ -82,14 +82,29 @@ void bootstrap(Array arr) {
   }
 }
 
+Array populate(){
+  int *arr = (int*)malloc(sizeof(int) * DEFAULT_SIZE);
+  int len = 0;
+  int capacity_left = DEFAULT_SIZE;
+  char c;
+  while((c=getchar()) != '\n'){
+    ungetc(c, stdin);
+    if(capacity_left == 0) {
+      arr = realloc(arr, sizeof(int) * (len + DEFAULT_SIZE));
+      capacity_left = DEFAULT_SIZE;
+    }
+    scanf("%d", (arr+len++));
+    capacity_left--;
+  }
+  return (Array){arr, len};
+}
+
 
 int main() {
-  int n = 5;
-  display(to_array(102));
-  //printf("%d\t", contains(to_array(14), to_array(103)));
-  printf("%d", find_the_number(76, 13));
-  //printf("%d\t", to_array(102));
-  Array arr = {(int []){2,9,6,3,9,8,17,3,4,6,13,5}, 12};
+  //Array arr = {(int []){2,9,6,3,9,8,17,3,4,6,13,5}, 12};
+  printf("enter the array: ");
+  Array arr = populate();
   bootstrap(arr);
+  printf("array after modification: ");
   display(arr);
 }
