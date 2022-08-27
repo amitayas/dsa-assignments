@@ -1,35 +1,56 @@
 #include<stdio.h>
+#include<stdlib.h>
 
-typedef struct Array {
+#define DEFAULT_SIZE 15
+
+typedef struct {
   int *pointer;
-  int length;
+  int len;
 } Array;
-
 
 void display(Array arr){
   printf("\n");
-  for(int i = 0 ; i < arr.length ; i++){
+  for(int i = 0 ; i < arr.len ; i++){
     printf("%d\t", arr.pointer[i]);
   }
   printf("\n");
 }
 
-
 Array delete(int n, Array arr) {
-  Array ret;
-  ret.length = 0;
-  for(int i = 0 ; i < arr.length; i++){
-    if(arr.pointer[i] == n) continue;
-    ret.pointer[ret.length] = arr.pointer[i];
-    ret.length++;
+  for(int i = 0 ; i < arr.len ; i++) {
+    if(arr.pointer[i] == n) {
+      for(int j = i+1 ; j < arr.len ; j++) {
+        arr.pointer[j - 1] = arr.pointer[j];
+      }
+      arr.len--;
+    }
   }
-  return ret;
+  return arr;
 }
 
+Array populate(){
+  int *arr = (int*)malloc(sizeof(int) * DEFAULT_SIZE);
+  int len = 0;
+  int capacity_left = DEFAULT_SIZE;
+  char c;
+  while((c=getchar()) != '\n'){
+    ungetc(c, stdin);
+    if(capacity_left == 0) {
+      arr = realloc(arr, sizeof(int) * (len + DEFAULT_SIZE));
+      capacity_left = DEFAULT_SIZE;
+    }
+    scanf("%d", (arr+len++));
+    capacity_left--;
+  }
+  return (Array){arr, len};
+}
 
 int main() {
-  Array arr = { (int[]){1,2,3,4,3}, 5 };
-  display(arr);
-  display(delete(3, arr));
-
+  printf("enter the array: ");
+  Array arr = populate();
+  printf("enter the number you wish to be delted: ");
+  int n;
+  scanf("%d", &n);
+  printf("array after deleting: ");
+  display(delete(n, arr));
 }
