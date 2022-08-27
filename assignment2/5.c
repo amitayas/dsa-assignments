@@ -1,6 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+#define DEFAULT_SIZE 15
+
 typedef struct {
   int *pointer;
   int len;
@@ -14,6 +16,24 @@ int condition(Array arr) {
   return (arr.pointer[arr.len-1] == sum) ? 1 : 0;
 }
 
+Array populate(){
+  int *arr = (int*)malloc(sizeof(int) * DEFAULT_SIZE);
+  int len = 0;
+  int capacity_left = DEFAULT_SIZE;
+  char c;
+  while((c=getchar()) != '\n'){
+    ungetc(c, stdin);
+    if(capacity_left == 0) {
+      arr = realloc(arr, sizeof(int) * (len + DEFAULT_SIZE));
+      capacity_left = DEFAULT_SIZE;
+    }
+    scanf("%d", (arr+len++));
+    capacity_left--;
+  }
+  return (Array){arr, len};
+}
+
+
 void bootstrap(Array arr) {
   for(int i =  0; i < arr.len - 2 ; i++) {
     for(int j = i+1 ; j < arr.len ; j++) {
@@ -24,6 +44,7 @@ void bootstrap(Array arr) {
 }
 
 int main() {
-  Array arr = {(int []){2,9,6,3,9,8,17,3,6,4,13,17}, 12};
+  Array arr = populate();
+  printf("\nsuch nos in the array if any:\n");
   bootstrap(arr);
 }
