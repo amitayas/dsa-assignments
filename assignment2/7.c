@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-#define DEFAULT_SIZE 15
 
 typedef struct {
   int *pointer;
@@ -32,27 +31,8 @@ void display(Array arr) {
   printf("\n\n");
 }
 
-Array populate(){
-  int *arr = (int*)malloc(sizeof(int) * DEFAULT_SIZE);
-  int len = 0;
-  int capacity_left = DEFAULT_SIZE;
-  char c;
-  while((c=getchar()) != '\n'){
-    ungetc(c, stdin);
-    if(capacity_left == 0) {
-      arr = realloc(arr, sizeof(int) * (len + DEFAULT_SIZE));
-      capacity_left = DEFAULT_SIZE;
-    }
-    scanf("%d", (arr+len++));
-    capacity_left--;
-  }
-  return (Array){arr, len};
-}
-
-
 int bootstrap() {
-  //Array arr = (Array){(int []){2,9,6,3,5,8,11,3,6,7,13,5}, 12};
-  Array arr = populate();
+  Array arr = (Array){(int []){2,9,6,3,5,8,11,3,6,7,13,5}, 12};
   rotate(arr, 4, 9, 2);
   display(arr);
 }
