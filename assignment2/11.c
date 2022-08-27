@@ -28,10 +28,6 @@ Array intersection(int *arr1, int len1, int *arr2, int len2) {
   return (Array){intersectional_array, flag};
 }
 
-Array intersection_wrapper(int *arr1, int len1, int *arr2, int len2) {
-  int len = (len1 < len2) ? len1 : len2;
-}
-
 Array populate(){
   int *arr = (int*)malloc(sizeof(int) * DEFAULT_SIZE);
   int len = 0;
@@ -58,12 +54,12 @@ void display(int *arr, int len) {
 }
 
 int main() {
-  printf("enter a fucking array: ");
+  printf("enter array: ");
   Array array1 = populate();
-  printf("enter another fucking array: ");
+  printf("enter another array: ");
   Array array2 = populate();
 
-  printf("your fookin' intersectional array is here:- \n");
+  printf("intersection  of the two:- \n");
   Array intersectional_array = intersection(
     array1.arr,
     array1.len,
