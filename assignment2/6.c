@@ -54,9 +54,6 @@ Array populate(){
 
 
 int main() {
-  //int arr[] = {1,2,33,4,33,4,6,7,1,9};
-  //int len = 10;
-  
   Array array = populate();
   int *arr = array.pointer;
   int len = array.len;
