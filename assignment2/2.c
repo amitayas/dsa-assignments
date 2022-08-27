@@ -64,7 +64,7 @@ void display(Array arr) {
 }
 
 int main() {
-  printf("enter the fucking array: ");
+  printf("enter the array: ");
   Array arr = populate();
   int (*condition)(int) = (arr.len % 2 ==0) ? &condition_even : &condition_odd;
   reverse_array_elements(arr, condition);
