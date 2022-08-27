@@ -40,11 +40,14 @@ void bootstrap(int n, int *mat, int rows, int columns, int gap) {
 
 
 int main() {
-  int *mat = (int*)malloc(sizeof(int) * 3 * 3);
-  for(int i = 0 ; i < 3 ; i++) {
-    for(int j = 0 ; j < 3 ; j++) {
-      scanf("%d", (mat + i * 3 + j));
-    }
-  }
+
+  int mat[3][3] = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+  };
+  
+  int n = 12;
+
   bootstrap(12, mat, 3, 3 , 3);
 }
